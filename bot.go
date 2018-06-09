@@ -36,13 +36,11 @@ func main() {
 }
 
 func handleMessage(session *discordgo.Session, message *discordgo.MessageCreate) {
-	fmt.Println("message content:%s", message.Content)
-	if message.Author.ID == session.State.User.ID {
-		fmt.Println("from user")
+	if message.Author.ID == session.State.User.ID ||
+		!strings.HasPrefix(message.Content, "!") {
 		return
 	}
-	command := strings.TrimPrefix(message.Content, "!")
-	fmt.Println(command)
+	command := strings.ToLower(strings.TrimPrefix(message.Content, "!"))
 	if command == "ping" {
 		session.ChannelMessageSend(message.ChannelID, "Pong!")
 	}
