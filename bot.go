@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/bwmarrin/discordgo"
 	"os"
 	"os/signal"
 	"strings"
 	"syscall"
+
+	"./commander"
+
+	"github.com/bwmarrin/discordgo"
 )
 
 func main() {
@@ -22,6 +25,8 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	commander.AddCommand(&commander.Ping{})
 
 	fmt.Println("LINK START")
 
@@ -40,8 +45,5 @@ func handleMessage(session *discordgo.Session, message *discordgo.MessageCreate)
 		!strings.HasPrefix(message.Content, "!") {
 		return
 	}
-	command := strings.ToLower(strings.TrimPrefix(message.Content, "!"))
-	if command == "ping" {
-		session.ChannelMessageSend(message.ChannelID, "Pong!")
-	}
+	commander.Handle(session, message)
 }
