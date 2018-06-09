@@ -37,7 +37,9 @@ func Handle(s *discordgo.Session, m *discordgo.MessageCreate) {
 		for name, cmd := range commands {
 			if name == payload {
 				cmd.Execute(&Context{s, m})
+				return
 			}
 		}
+		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Unknown Command: `%s`", payload))
 	}
 }

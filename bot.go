@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"./commander"
+	"./commander/cmds"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -26,7 +27,7 @@ func main() {
 		return
 	}
 
-	commander.AddCommand(&commander.Ping{})
+	commander.AddCommand(&cmds.Ping{})
 
 	fmt.Println("LINK START")
 
