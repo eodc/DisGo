@@ -27,8 +27,8 @@ func main() {
 		return
 	}
 
-	commander.AddCommand(&cmds.Ping{})
-	commander.AddCommand(&cmds.Echo{})
+	commander.AddCommands(&cmds.Ping{},
+		&cmds.Echo{})
 
 	fmt.Println("LINK START")
 

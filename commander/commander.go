@@ -28,6 +28,14 @@ func (c *Context) SendMessage(content string) {
 
 var commands map[string]Command
 
+func AddCommands(c ...Command) {
+	if c != nil {
+		for _, cmd := range c {
+			AddCommand(cmd)
+		}
+	}
+}
+
 func AddCommand(c Command) {
 	if commands == nil {
 		commands = make(map[string]Command)
